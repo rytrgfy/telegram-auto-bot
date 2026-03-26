@@ -1,1 +1,32 @@
 
+name: Telegram Auto Message
+
+on:
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Random Message
+        run: |
+          messages=(
+            "Hey Rani 💛 Just checking in—how are you feeling today?"
+            "You’re stronger than you think 💪 Keep going!"
+            "Everything will be okay 🌸 Take it one step at a time"
+            "You matter 💛 Never forget that"
+            "Even tough days don’t last forever 🌈"
+            "Stay positive, better days are coming ✨"
+            "Take a deep breath 😊 You’ve got this"
+            "You’re not alone 💛 I’m here for you"
+          )
+
+          random_index=$((RANDOM % ${#messages[@]}))
+          message=${messages[$random_index]}
+
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendMessage \
+          -d chat_id=${{ secrets.CHAT_ID }} \
+          -d text="$message"
