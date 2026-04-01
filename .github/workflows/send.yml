@@ -1,5 +1,7 @@
 name: Telegram Auto Message
 
+# it is been paused by Rohit Sahoo in 03:24 pm on 01-04-2023
+
 on:
   schedule:
     - cron: '0 * * * *'
